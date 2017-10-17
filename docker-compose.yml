@@ -1,0 +1,19 @@
+app1:
+  build: ./app1
+  ports:
+    - "3001:3001"
+  command: node index.js
+app2:
+  build: ./app2
+  ports:
+    - "3002:3002"
+  command: node index.js
+
+nginx:
+  restart: always
+  build: ./proxy/
+  ports:
+    - "8080:8080"
+  links:
+    - app1:app1
+    - app2:app2
